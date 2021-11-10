@@ -150,7 +150,6 @@ $(".list-group").on("change", "input[type='text']", function () {
 
   // pass task's li el to audit due date for visuals
   auditTask($(taskSpan).closest(".list-group-item"));
-
 });
 
 // drag-and-drop to edit task category
@@ -160,16 +159,16 @@ $(".card .list-group").sortable({
   tolerance: "pointer",
   helper: "clone",
   activate: function(event) {
-    // console.log("activate", this);
+    $(this).addClass("dropover");
   },
   deactivate: function(event) {
-    // console.log("deactivate", this);
+    $(this).removeClass("dropover");
   },
   over: function(event) {
-    // console.log("over", event.target);
+    $(this).addClass("dropover-active");
   },
   out: function(event) {
-    // console.log("out", event.target);
+    $(this).removeClass("dropover-active");
   },
   update: function(event) {
     // arr for temp storage of task data
@@ -257,6 +256,13 @@ $("#remove-tasks").on("click", function () {
   }
   saveTasks();
 });
+
+// background audit tasks to auto update
+setInterval(function() {
+  $(".card .list-group-item").each(function(index, el) {
+    auditTask(el);
+  });
+}, 1800000);
 
 // load tasks for the first time
 loadTasks();
