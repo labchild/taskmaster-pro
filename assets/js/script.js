@@ -2,6 +2,7 @@ var tasks = {};
 
 var createTask = function(taskText, taskDate, taskList) {
   // create elements that make up a task item
+  // debugger;
   var taskLi = $("<li>").addClass("list-group-item");
   var taskSpan = $("<span>")
     .addClass("badge badge-primary badge-pill")
@@ -45,7 +46,38 @@ var saveTasks = function() {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
+// handle task edit
+$(".list-group").on("click", "p", function() {
+  var text = $(this)
+  .text()
+  .trim();
+  
+  var textInput = $("<textarea>")
+  .addClass("form-control")
+  .val(text);
 
+  $(this).replaceWith(textInput);
+  textInput.trigger("focus");
+});
+
+// handle click away from modal, save edited task
+$(".list-group").on("blur", "textarea", function(){
+  // get textarea's current value
+  var text = $(this).val().trim();
+  // get parnet ul's id
+    // closest ancestor with .list-group, get id, replace "list-" with "" and return remaining string to status
+  var status = $(this).closest(".list-group").attr("id").replace("list-", "");
+  // get task's position in the list of other li elements
+  var index = $(this).closest(".list-group-item").index();
+
+  tasks[status][index].text = text;
+  saveTasks();
+  
+  // recreate p el
+  var taskP = $("<p>").addClass("m-1").text(text);
+  // replace text area with p
+  $(this).replaceWith(taskP);
+})
 
 
 // modal was triggered
