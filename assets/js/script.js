@@ -46,7 +46,8 @@ var saveTasks = function () {
   localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
-// handle task edit
+// EDITING TASKS
+// handle task description  edit
 $(".list-group").on("click", "p", function () {
   var text = $(this)
     .text()
@@ -60,7 +61,7 @@ $(".list-group").on("click", "p", function () {
   textInput.trigger("focus");
 });
 
-// handle click away from textarea, save edited task
+// handle click away from textarea, save edited task description
 $(".list-group").on("blur", "textarea", function () {
   // get textarea's current value
   var text = $(this).val().trim();
@@ -81,7 +82,7 @@ $(".list-group").on("blur", "textarea", function () {
   $(this).replaceWith(taskP);
 });
 
-// handle due date click
+// handle edit due date click
 $(".list-group").on("click", "span", function () {
   // get current text
   var date = $(this).text().trim();
@@ -116,6 +117,47 @@ $(".list-group").on("blur", "input[type='text']", function () {
   var taskSpan = $("<span>").addClass("badge badge-primary badge-pill").text(date);
   // replace input wit span el
   $(this).replaceWith(taskSpan);
+});
+
+// drag-and-drop to edit task category
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll: false,
+  tolerance: "pointer",
+  helper: "clone",
+  activate: function(event) {
+    // console.log("activate", this);
+  },
+  deactivate: function(event) {
+    // console.log("deactivate", this);
+  },
+  over: function(event) {
+    // console.log("over", event.target);
+  },
+  out: function(event) {
+    // console.log("out", event.target);
+  },
+  update: function(event) {
+    // arr for temp storage of task data
+    var tempArr = [];
+
+    // loop over current set of children in sortable list
+    $(this).children().each(function () {
+      // look at this (the child currently on in the loop), find a p, get the text, and trim it. return as text.
+      var text = $(this).find("p").text().trim();
+      var date = $(this).find("span").text().trim();
+
+      // add task data to temp arr as obj
+      tempArr.push({text: text, date: date});
+    });
+    
+    // trim down list's id to match obj property
+    var arrName = $(this).attr("id").replace("list-", "");
+
+    // update array on tasks obj and save
+    tasks[arrName] = tempArr;
+    saveTasks();
+  }
 });
 
 // modal was triggered
