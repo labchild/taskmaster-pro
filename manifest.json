@@ -1,0 +1,41 @@
+{
+    "name":"Taskmaster Zac",
+    "short_name":"Taskmaster",
+    "theme_color":"#292b2c",
+    "background_color":"#f7f7f7",
+    "start_url":".",
+    "display":"standalone",
+    "description":"A Kanban-style to-do list and task tracker app.",
+    "icons":[
+        {
+            "src":"assets/icons/task-icon-72.png",
+            "sizes":"72x72",
+            "type":"img/png"
+        },
+        {
+            "src":"assets/icons/task-icon-96.png",
+            "sizes":"96x96",
+            "type":"img/png"
+        },
+        {
+            "src":"assets/icons/task-icon-128.png",
+            "sizes":"128x128",
+            "type":"img/png"
+        },
+        {
+            "src":"assets/icons/task-icon-256.png",
+            "sizes":"256x256",
+            "type":"img/png"
+        },
+        {
+            "src":"assets/icons/task-icon-384.png",
+            "sizes":"384x384",
+            "type":"img/png"
+        },
+        {
+            "src":"assets/icons/task-icon-512.png",
+            "sizes":"512x512",
+            "type":"img/png"
+        }
+    ]
+}
