@@ -4,7 +4,8 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 const FILES_TO_CACHE = [
     './index.html',
     './assets/css/style.css',
-    './assets/js/script.js'
+    './assets/js/script.js',
+    './manifest.json'
 ];
 
 self.addEventListener('install', function (e) {
